@@ -50,8 +50,8 @@ public:
     int search(vector<int>& nums, int target) {
         int pivotIndex=findPivot(nums);
         int ans=0;
-        if(target>=nums[0]&& target<=nums[pivotIndex]){
-            ans=binarySearch(nums, pivotIndex, 0, target);
+        if(target>=nums[0]  && target<=nums[pivotIndex]){
+            ans=binarySearch(nums, 0, pivotIndex, target);
         }
         else{
             ans=binarySearch(nums, pivotIndex+1,nums.size()-1,target);
