@@ -28,7 +28,9 @@ public:
         }
 
         //THIS IS THE GAME: finding circular difference here(24hrs=1440minutes)
-        int lastDiff = (minutes[0]+1440)-minutes[n-1];
+        int lastDiff1 = (minutes[0]+1440)-minutes[n-1];
+        int lastDiff2 = minutes[n-1] - minutes[0];
+        int lastDiff = min(lastDiff1, lastDiff2);
         mini = min(lastDiff, mini);
 
         return mini;
