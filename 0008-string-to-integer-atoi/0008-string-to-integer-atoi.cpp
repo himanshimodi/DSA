@@ -22,7 +22,7 @@ public:
         }
         //step 3: check if it is a digit
         while(i < s.size() && isdigit(s[i])){
-            int digit = s[i] - '0';
+            int digit = s[i] - '0'; //s[i]-'0' converts s[i](char) into integer
             if (num > (INT_MAX - digit) / 10) {
                 return sign == -1 ? INT_MIN : INT_MAX;
             }
