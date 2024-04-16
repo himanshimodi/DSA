@@ -1,30 +1,32 @@
 class Solution {
 public:
     string convert(string s, int numRows) {
-        if (numRows == 1 || numRows >= s.length()) {
-            return s;
-        }
+        if(numRows == 1) return s;
+        vector<string> zigzag(numRows);
 
-        int idx = 0, d = 1;
-        vector<vector<char>> rows(numRows);
+        int i=0, row=0;
+        bool direction =1;// T -> B
 
-        for (char c : s) {
-            rows[idx].push_back(c);
-            if (idx == 0) {
-                d = 1;
-            } else if (idx == numRows - 1) {
-                d = -1;
+        while(true){
+            if(direction == 1){
+                while(row < numRows && i< s.size()){
+                    zigzag[row++].push_back(s[i++]);
+                }
+                row = numRows-2;
             }
-            idx += d;
-        }
-
-        string result;
-        for (const auto& row : rows) {
-            for (char c : row) {
-                result += c;
+            else{
+                while(row>=0 && i<s.size()){
+                    zigzag[row--].push_back(s[i++]);
+                }
+                row = 1;
             }
+            if(i>=s.size()) break;
+            direction = !direction;
+        }      
+        string ans="";
+        for(int i=0; i<zigzag.size();i++){
+            ans += zigzag[i]; 
         }
-
-        return result;        
+        return ans;
     }
 };
