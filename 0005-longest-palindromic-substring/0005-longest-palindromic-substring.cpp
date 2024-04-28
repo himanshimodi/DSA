@@ -12,7 +12,7 @@ public:
     }
     string longestPalindrome(string s) {
     string ans="";
-    //extract all substrings
+    //extract all substrings.
     for(int i=0;i<s.size();i++){
         for(int j=i; j<s.size();j++){
             if(checkPalindrome(i,j,s)){
