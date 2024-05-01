@@ -59,7 +59,7 @@ public:
 //             }
 //         }
 
-//         s[index++] = prev;
+//.        s[index++] = prev;  
 //         if (count > 1) {
 //             string countStr = to_string(count);
 //             for (char c : countStr) {
