@@ -6,7 +6,7 @@ public:
         vector<bool> prime(n, true); //all are marked as prime in the start
         prime[0] = prime[1] = false; // 0 and 1 are always marked as false as they are not prime
 
-        int ans=0; // this is just a counter variable
+        int ans=0; // this is just a counter variable  
 
         for(int i=2; i<n; i++){
             if(prime[i]){
@@ -22,3 +22,4 @@ public:
         return ans;
     }
 };
+//commenting
