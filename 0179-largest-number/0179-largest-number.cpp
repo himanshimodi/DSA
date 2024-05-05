@@ -14,7 +14,7 @@ public:
         }
         sort(snums.begin(), snums.end(), mycomp);
 
-        // corner case: if first charcter is zero
+        // corner case: if first charcter is zero.
         if(snums[0] == "0") return "0";
 
         string ans="";
