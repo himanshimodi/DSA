@@ -1,6 +1,6 @@
 class Solution {
 public:
-    //int to roman
+    //int to roman.
     string intToRoman(int num) {
     string romanSymbols[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
