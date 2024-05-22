@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //not much dimag used
     string removeOccurrences(string s, string part) {
         int pos= s.find(part);
         while(pos!=string::npos){
