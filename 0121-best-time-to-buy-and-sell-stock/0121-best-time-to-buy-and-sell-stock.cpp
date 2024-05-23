@@ -11,9 +11,8 @@ public:
         if(prices[i] < minPrice){
             minPrice = prices[i];
         }
-        int todaysProfit = prices[i] - minPrice;
-        if(todaysProfit > maxProfit){
-            maxProfit = todaysProfit;
+        if(prices[i] - minPrice > maxProfit){
+            maxProfit = prices[i] - minPrice;
         }
 
         //recursion
