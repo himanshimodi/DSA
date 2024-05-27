@@ -1,0 +1,81 @@
+44. Wildcard Matching
+Hard
+Topics
+Companies
+Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*' where:
+
+'?' Matches any single character.
+'*' Matches any sequence of characters (including the empty sequence).
+The matching should cover the entire input string (not partial).
+
+ 
+
+Example 1:
+
+Input: s = "aa", p = "a"
+Output: false
+Explanation: "a" does not match the entire string "aa".
+Example 2:
+
+Input: s = "aa", p = "*"
+Output: true
+Explanation: '*' matches any sequence.
+Example 3:
+
+Input: s = "cb", p = "?a"
+Output: false
+Explanation: '?' matches 'c', but the second letter is 'a', which does not match 'b'.
+ 
+
+Constraints:
+
+0 <= s.length, p.length <= 2000
+s contains only lowercase English letters.
+p contains only lowercase English letters, '?' or '*'.
+
+
+
+
+TLE_BY_RECURSION - 937/1811
+class Solution {
+public:
+    bool isMatchHelper(string &s, int si, string &p, int pi){
+        //base cases
+        if(si == s.size() && pi == p.size()){
+            return true;
+        }
+
+        if(si == s.size() && pi != p.size()){
+            while(pi<p.size()){
+                if(p[pi] != '*') return false;
+                pi++;
+            }
+            return true;
+        }
+
+        //single character matches (?)
+        if(s[si] == p[pi] ||'?' == p[pi]){
+            return isMatchHelper(s, si+1, p, pi+1);
+        }
+
+        //cases of '*' matching
+        if(p[pi] == '*'){
+
+            //treat '*' as empty or null
+            bool caseA = isMatchHelper(s, si, p, pi+1);
+
+            //let * consume one character
+            bool caseB = isMatchHelper(s, si+1, p, pi);
+            return caseA || caseB;
+        }
+        //characters don't match
+        return false;
+
+    }
+    bool isMatch(string s, string p) {
+        int si=0; //index pointer for s string
+        int pi=0; //index pointer for p string
+
+        return isMatchHelper(s,si,p,pi);
+    }
+};
