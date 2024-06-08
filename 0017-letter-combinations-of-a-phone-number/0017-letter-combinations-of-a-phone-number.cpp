@@ -1,5 +1,7 @@
 class Solution {
 public:
+    // NOT THE IDLE SOLUTION DONT REVISE FROM THIS
+    //NEXT COMMIT WILL HAVE THE PROPER REVISE-ABLE SOLUTION
 void help(int i, string &s,string &temp, vector<string> &ans, unordered_map<char,string> &m){
     //base case
     if(s.empty()) return;
