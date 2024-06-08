@@ -1,36 +1,51 @@
 class Solution {
 public:
-    // NOT THE IDLE SOLUTION DONT REVISE FROM THIS
-    //NEXT COMMIT WILL HAVE THE PROPER REVISE-ABLE SOLUTION
-void help(int i, string &s,string &temp, vector<string> &ans, unordered_map<char,string> &m){
-    //base case
-    if(s.empty()) return;
-    if(i==s.size()){
-        ans.push_back(temp);
-        return;
+    void solve(vector<string>& ans, int index, string output, string digits,
+               unordered_map<int, string>& map) {
+
+        // base case
+        if (index >= digits.length()) {
+            ans.push_back(output);
+            return;
+        }
+
+        // ek case solve krdo, baki recursion sambhal lega
+
+        int digit = digits[index] - '0';
+        string value = map[digit];
+
+        for (int i = 0; i < value.length(); i++) {
+            char ch = value[i];
+            // include the character
+            output.push_back(ch);
+            // recursion
+            solve(ans, index+1, output, digits, map);
+            // backtracking
+            output.pop_back();
+        }
     }
 
-    string str=m[s[i]];
-    for(int j=0; j<str.size();j++){
-        temp.push_back(str[j]);
-        help(i+1, s, temp, ans, m);//recursion
-        temp.pop_back();//backtrack
-    }
-}
-
-vector<string> letterCombinations(string s) {
-        unordered_map<char, string> m;
+    vector<string> letterCombinations(string digits) {
         vector<string> ans;
-        string temp;
-        m['2']="abc";
-        m['3']="def";
-        m['4']="ghi";
-        m['5']="jkl";
-        m['6']="mno";
-        m['7']="pqrs";
-        m['8']="tuv";
-        m['9']="wxyz";
-        help(0,s,temp,ans,m);
+        int index = 0;
+        string output = "";
+
+        // edge case
+        if (digits.length() == 0)
+            return ans;
+
+        unordered_map<int, string> map;
+        map[2] = "abc";
+        map[3] = "def";
+        map[4] = "ghi";
+        map[5] = "jkl";
+        map[6] = "mno";
+        map[7] = "pqrs";
+        map[8] = "tuv";
+        map[9] = "wxyz";
+
+        solve(ans, index, output, digits, map);
+
         return ans;
     }
 };
