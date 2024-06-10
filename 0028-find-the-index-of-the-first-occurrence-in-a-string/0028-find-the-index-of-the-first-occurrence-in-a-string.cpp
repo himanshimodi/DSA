@@ -7,7 +7,7 @@ public:
         if(haystack == needle){
             return 0;
         }
-        // outer loop. 
+        // outer loop
         for(int i=0; i<=n-m; i++){
             for(int j=0;j<m; j++){
                 if(needle[j] != haystack[i+j] ){
