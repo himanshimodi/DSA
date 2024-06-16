@@ -1,6 +1,8 @@
 class Solution {
 public:
 
+    //using DNC, better way is Kadane's Algo
+
     int helper(vector<int>&v, int start, int end){
 
         //base case
