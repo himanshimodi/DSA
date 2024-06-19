@@ -1,21 +1,26 @@
 class Solution {
 public:
-
-    void helper(vector<int>& nums, vector<vector<int>>&ans, int i){
+    //WITH THE USE OF MAP
+    void helper(vector<int>& nums, vector<vector<int>>&ans, int start){
 
         //base case
-        if(i >= nums.size()){
+        if(start >= nums.size()){
             ans.push_back(nums);
             return;
         }
 
-        for(int j=i; j<nums.size(); j++){
+        unordered_map<int, bool> visited;
+        for(int i=start; i<nums.size(); i++){
+            if(visited.find(nums[i])!= visited.end()){
+                continue;
+            }
+            visited[nums[i]] = true;
             //swap
-            swap(nums[i], nums[j]);
+            swap(nums[i], nums[start]);
             //recursion
-            helper(nums, ans, i+1);
+            helper(nums, ans, start+1);
             //backtracking
-            swap(nums[i], nums[j]);
+            swap(nums[i], nums[start]);
         }
     }
 
@@ -23,15 +28,6 @@ public:
         vector<vector<int>> ans;
         helper(nums, ans, 0);
 
-        //to remove duplicate elements
-        set<vector<int>> st;
-        for(auto e:ans){
-            st.insert(e);
-        }
-        ans.clear();
-        for(auto e:st){
-            ans.push_back(e);
-        }
         return ans;
     }
 };
