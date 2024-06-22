@@ -6,7 +6,7 @@ public:
         while(true){
             char curr_ch=0;
             for(auto s: strs){
-                if(i>=s.size()){  // out of bound
+                if(i>=s.size()){  // out of bound nhi hona chaiye
                     curr_ch=0;
                     break;
                 }
