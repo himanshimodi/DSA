@@ -9,16 +9,16 @@
  * };
  */
 
-// class Node {
-// public:
-//     int data;
-//     Node* next;
+class Node {
+public:
+    int data;
+    Node* next;
 
-//     Node(int data) {
-//         this->data = data;
-//         this->next = NULL;
-//     }
-// };
+    Node(int data) {
+        this->data = data;
+        this->next = NULL;
+    }
+};
 
 ListNode* reverse(ListNode*& head) {
     ListNode* prev = NULL;
