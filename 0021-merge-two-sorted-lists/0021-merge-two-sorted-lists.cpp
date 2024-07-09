@@ -15,6 +15,7 @@ public:
             return head2;
         if (head2 == NULL)
             return head1;
+            
         ListNode* ans = new ListNode(-1);
         ListNode* mptr = ans;
 
