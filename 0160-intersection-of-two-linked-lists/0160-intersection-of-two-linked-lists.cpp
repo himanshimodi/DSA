@@ -20,7 +20,7 @@ public:
     }
     
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        if (!headA || !headB) return NULL;
+        if (headA==NULL || headB==NULL) return NULL;
 
         int lenA = findLength(headA);
         int lenB = findLength(headB);
@@ -30,13 +30,11 @@ public:
         ListNode *a = headA;
         ListNode *b = headB;
 
-        if(lenA > lenB){
-            for(int i=0; i<diff; i++){
+        for(int i=0; i<diff; i++){
+            if(lenA>lenB){
                 a= a->next;
             }
-        }
-        else{
-            for(int i=0; i<diff; i++){
+            else{
                 b= b->next;
             }
         }
@@ -48,7 +46,6 @@ public:
             a = a->next;
             b = b->next;
         }
-        
         return NULL;
     }
 };
