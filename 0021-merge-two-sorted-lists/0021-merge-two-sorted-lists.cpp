@@ -10,7 +10,7 @@
  */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* head1, ListNode* head2) {
+    ListNode* mergeTwoLists(ListNode* &head1, ListNode* &head2) {
         if (head1 == NULL)
             return head2;
         if (head2 == NULL)
