@@ -24,8 +24,7 @@ public:
                     } else {
                         return false;
                     }
-                }
-                else{
+                } else {
                     return false;
                 }
             }
