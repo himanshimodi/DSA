@@ -11,35 +11,47 @@ using namespace std;
 class Solution{
 public:
 
-    void solve(stack<int> &st,int x){
+    // void solve(stack<int> &st,int x){
         
-        //base case
-        if(st.empty()){
-            st.push(x);
-            return;
-        }
+    //     //base case
+    //     if(st.empty()){
+    //         st.push(x);
+    //         return;
+    //     }
         
-        int topElement = st.top();
+    //     //step1
+    //     int topElement = st.top();
         
-        st.pop();
+    //     //step2
+    //     st.pop();
         
-        //rec cal
-        solve(st, x);
+    //     //step3 RE cal
+    //     solve(st, x);
         
-        //backtrack
-        st.push(topElement);
-    }
+    //     //step 4 backtrack
+    //     st.push(topElement);
+    // }
+    
+    
     stack<int> insertAtBottom(stack<int> &st,int x){
         
-        //stack is empty, cannot insert at bottom 
+        //stack is empty means simply insert element
         if(st.empty()){
+            st.push(x);
             return st;
         }
-        
+        //step 1
         int topElement = st.top();
+        
+        //step2
         st.pop();
-        solve(st, x);
+        
+        //step3 RE call
+        insertAtBottom(st, x);
+        
+        //step4 Backtrack
         st.push(topElement);
+        
         return st;
     }
 };
