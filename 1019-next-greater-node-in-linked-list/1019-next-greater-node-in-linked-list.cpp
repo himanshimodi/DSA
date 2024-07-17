@@ -21,7 +21,7 @@ public:
         }
 
         // Initialize the answer vector with zeros
-        ans.resize(v.size(), 0);
+        ans.resize(v.size());
 
         stack<int> st;
         for (int i = v.size() - 1; i >= 0; i--) {
