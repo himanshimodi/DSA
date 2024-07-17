@@ -12,7 +12,7 @@ class Solution {
 public:
     vector<int> nextLargerNodes(ListNode* head) {
         vector<int> v;
-        vector<int> ans;
+        
 
         // Extract values from the linked list into the vector 'v'
         while (head != nullptr) {
@@ -21,7 +21,7 @@ public:
         }
 
         // Initialize the answer vector with zeros
-        ans.resize(v.size());
+        vector<int> ans(v.size());
 
         stack<int> st;
         for (int i = v.size() - 1; i >= 0; i--) {
