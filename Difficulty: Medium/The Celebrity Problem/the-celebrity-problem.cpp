@@ -20,7 +20,7 @@ class Solution
             st.push(i);
         }
         
-        //step2: run discard method and find out someone who might eb a celeb
+        //step2: run discard method and find out someone who might be a celeb
         while(st.size()!=1){
             int a= st.top(); st.pop();
             int b= st.top(); st.pop();
@@ -59,8 +59,6 @@ class Solution
                 return -1;
             }
         }
-        
-        //definitely not a celeb
         return mightBeACeleb;
     }
 };
