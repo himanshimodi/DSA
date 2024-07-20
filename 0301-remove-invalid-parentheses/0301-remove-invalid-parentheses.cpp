@@ -26,6 +26,7 @@ public:
     
     void solve(string s,int minInv){
 
+        //map is to check if the string is duplicated
         if(mp[s] != 0) 
             return;
         else
@@ -37,6 +38,7 @@ public:
         if(minInv == 0)
         {
             if(!getMinInValid(s))
+            //meaning it is valid
                 res.push_back(s);
             return;
         }
