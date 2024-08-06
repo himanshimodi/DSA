@@ -5,6 +5,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 	public:
+	//TC=O(n), SC=O(n)
 		string FirstNonRepeating(string A){
 		    int freq[26]={0};
 		    queue<char>q;
@@ -19,10 +20,12 @@ class Solution {
 		        q.push(ch);
 
     	        while(!q.empty()){
+    	            //repeating char
     	            if(freq[q.front()-'a']>1){
     	                q.pop();
     	            }
     	            else{
+    	                //non-repeating char
     	                ans.push_back(q.front());
     	                break;
     	            }
