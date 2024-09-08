@@ -17,11 +17,36 @@ public:
         dp[i] = max(include, exclude);
         return dp[i];
     }
-    int rob(vector<int>& nums) {
+
+    int solveUsingTabulation(vector<int>&nums){
         int n = nums.size();
 
+        //step 1
+        vector<int>dp (n, -1);
+
+        //step 2 - initialisation
+        dp[n-1] = nums[n-1];
+
+        for(int i=n-2; i>=0; i--){
+
+            int tempAns =0;
+            if(i+2 < n){
+                tempAns = dp[i+2];
+            }
+
+            int include = nums[i] + tempAns;
+            int exclude =0 + dp[i+1];
+            dp[i] = max(include, exclude);
+        }
+        return dp[0];
+    }
+    int rob(vector<int>& nums) {
+        // int n = nums.size();
+
         //creating a dp
-        vector<int> dp(n, -1);
-        return solveUsingMemo(nums, 0, dp);
+        // vector<int> dp(n, -1);
+        // return solveUsingMemo(nums, 0, dp);
+        int ans = solveUsingTabulation(nums);
+        return ans;
     }
 };
