@@ -22,33 +22,33 @@ public:
     //     return mini;
     // }
 
-    // int solveUsingMemo(vector<int>& coins, int amount, vector<int> &dp){
-    //     //base case
-    //     if (amount == 0) {
-    //         return 0;
-    //     }
+    int solveUsingMemo(vector<int>& coins, int amount, vector<int> &dp){
+        //base case
+        if (amount == 0) {
+            return 0;
+        }
 
-    //     //step 3: if already stored
-    //     if(dp[amount]!= -1){
-    //         return dp[amount];
-    //     }
+        //step 3: if already stored
+        if(dp[amount]!= -1){
+            return dp[amount];
+        }
 
-    //     // step 4: RE logic
-    //     int mini = INT_MAX;
-    //     for (int i = 0; i < coins.size(); i++) {
-    //         if (amount - coins[i] >= 0) {
-    //             int ans = solveUsingMemo(coins, amount - coins[i], dp);
-    //             // matlab valid ans hai
-    //             if (ans != INT_MAX) {
-    //                 int finalAns = 1 + ans;
-    //                 mini = min(mini, finalAns);
-    //             }
-    //         }
-    //     }
-    //     //step 2
-    //     dp[amount] = mini;
-    //     return dp[amount];
-    // }
+        // step 4: RE logic
+        int mini = INT_MAX;
+        for (int i = 0; i < coins.size(); i++) {
+            if (amount - coins[i] >= 0) {
+                int ans = solveUsingMemo(coins, amount - coins[i], dp);
+                // matlab valid ans hai
+                if (ans != INT_MAX) {
+                    int finalAns = 1 + ans;
+                    mini = min(mini, finalAns);
+                }
+            }
+        }
+        //step 2
+        dp[amount] = mini;
+        return dp[amount];
+    }
 
     int solvedUsingTabulation(vector<int>& coins, int amount){
         //step 1: create a dp
