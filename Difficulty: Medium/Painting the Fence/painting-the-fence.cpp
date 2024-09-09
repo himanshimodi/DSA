@@ -45,6 +45,26 @@ class Solution{
         //step5 - return
         return dp[n];
     }
+
+     long long spaceOptimised(int n, int k){
+        int prev1=k;
+        int prev2=k+k*(k-1);
+        if(n==1){
+            return prev2;
+        }
+        if(n==2){
+            return prev1;
+        }
+        int curr;
+        for(int i=3; i<=n; i++){
+            curr = (prev1 + prev2)*(k-1);
+            
+            //update
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return curr;
+    }
     
     long long countWays(int n, int k) {
         // Step 1: Create a dp array
