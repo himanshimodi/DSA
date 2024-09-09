@@ -9,7 +9,7 @@ class Solution{
     public:
     const int MOD = 1e9 + 7; // Modulo value
     
-    long long solveUsingMem(int n, int k, vector<long long> &dp){
+   long long solveUsingMem(int n, int k, vector<long long> &dp){
         // Base cases
         if(n == 1) {
             return k;
@@ -28,12 +28,33 @@ class Solution{
         return dp[n];
     }
     
+    long long solveUsingTabulation(int n, int k){
+        //step1 - create a dp
+        vector<long long> dp(n+1, -1);
+        
+        //step 2- analyse base cases
+        dp[1] = k;
+        dp[2] = (k + (long long)k * (k-1)) % MOD;
+        
+        //step 3
+        for(int i=3; i<=n; i++){
+            // step 4 - RE logic
+             dp[i] = ( (dp[i-1] + dp[i-2]) % MOD * (k-1) ) % MOD;
+        }
+        
+        //step5 - return
+        return dp[n];
+    }
+    
     long long countWays(int n, int k) {
         // Step 1: Create a dp array
-        vector<long long> dp(n + 1, -1);
+        // vector<long long> dp(n + 1, -1);
         
         // Step 2: Call the solve function
-        return solveUsingMem(n, k, dp);
+        // return solveUsingMem(n, k, dp);
+        
+        int ans = solveUsingTabulation(n,k);
+        return ans;
     }
 };
 
