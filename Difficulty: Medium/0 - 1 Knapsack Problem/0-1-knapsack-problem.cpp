@@ -12,7 +12,7 @@ class Solution {
         return 0;
     }
 
-    // Include the item if its weight is less than or equal to capacity
+    // Include the item if its weight is less than or equal to capacityy
     int include = 0;
     if (wt[index] <= capacity) {
         include = profit[index] + solveUsingRecursion(capacity - wt[index], wt, profit, index + 1, n);
