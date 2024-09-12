@@ -85,7 +85,7 @@ public:
             next = curr;
 
         }
-        return curr[0];
+        return next[0];
     }
 
     int longestCommonSubsequence(string text1, string text2) {
