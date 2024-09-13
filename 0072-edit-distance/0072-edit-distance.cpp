@@ -93,6 +93,46 @@ public:
         return dp[0][0];
     }
 
+    int solveUsingTabSO(string &a, string &b ){
+
+        //step 1
+        vector<int> curr(a.length()+1, -1);
+        vector<int> next(a.length()+1, -1); // a is number of rows
+
+        //analyse base cases
+        // for(int col=0; col<=b.length(); col++){
+        //     dp[a.length()][col] = b.length()-col;
+        // }
+
+        //initialise krre hai for pattern matching
+        for(int row=0; row<=a.length(); row++){
+            next[row] = a.length()-row;
+        }
+
+        //Re logic
+        for(int j=b.length()-1;j>=0; j--){
+            for(int i=a.length()-1; i>=0; i--){
+                int ans = 0;
+                //matching characters
+                if(a[i] == b[j]){
+                ans = 0 + next[i+1];
+                }
+                //not matching characters
+                else{
+                int replace = 1 + next[i+1];
+                int insert = 1 + next[i];
+                int remove = 1 + curr[i+1];
+                ans = min(insert,min(remove,replace));
+                }
+                //store ans
+                curr[i] = ans;
+            }
+            //updating
+            next = curr;
+        }
+        return next[0];
+    }
+
     int minDistance(string word1, string word2) {
         int i=0;
         int j=0;
@@ -103,7 +143,10 @@ public:
         // int ans = solveUsingMem(word1,word2,i,j,dp);
         // return ans;
 
-        int ans = solveUsingTab(word1,word2);
+        // int ans = solveUsingTab(word1,word2);
+        // return ans;
+
+        int ans = solveUsingTabSO(word1,word2);
         return ans;
     }
 };
