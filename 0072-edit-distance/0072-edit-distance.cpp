@@ -112,6 +112,7 @@ public:
         //Re logic
         for(int j=b.length()-1;j>=0; j--){
             //har new column ke last dabbe mai ans insert karo
+            //MOST IMP LINE
             curr[a.length()] = b.length()-j;
             for(int i=a.length()-1; i>=0; i--){
                 int ans = 0;
