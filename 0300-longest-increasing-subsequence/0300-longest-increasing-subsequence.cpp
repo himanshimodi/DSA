@@ -59,6 +59,27 @@ public:
         return dp[0][0]; //initial values of curr=0 and prev = -1+1=0
     }
 
+    int solveUsingTabSO(vector<int> &nums){
+        int n = nums.size();
+        vector<int>currRow(n+1,0);
+        vector<int>nextRow(n+1,0);
+        
+        for(int curr =n-1; curr>=0; curr--){
+            for(int prev= curr-1; prev>=-1; prev--){
+                int include = 0;
+                if(prev == -1 || nums[curr]> nums[prev]){
+                    include = 1 +nextRow[curr+1];//shifting prev
+                }
+                int exclude = 0;
+                exclude = 0 + nextRow[prev+1];//shifting prev
+                currRow[prev+1] = max(include,exclude);
+            }
+            //updating
+            nextRow = currRow;
+        }
+        return nextRow[0]; //initial values of curr=0 and prev = -1+1=0
+    }
+
     int lengthOfLIS(vector<int>& nums) {
         int prev =-1;
         int curr =0;
@@ -71,7 +92,10 @@ public:
         // int ans = solveUsingMem(nums,curr,prev,dp);
         // return ans;
 
-        int ans = solveUsingTab(nums);
+        // int ans = solveUsingTab(nums);
+        // return ans;
+
+        int ans = solveUsingTabSO(nums);
         return ans;
     }
 };
