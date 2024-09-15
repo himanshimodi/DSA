@@ -80,6 +80,25 @@ public:
         return nextRow[0]; //initial values of curr=0 and prev = -1+1=0
     }
 
+    //USING BINARY SEARCH
+    int solveUsingBinarySearch(vector<int>& nums){
+        vector<int>ans;
+        ///initial state
+        ans.push_back(nums[0]);
+        for(int i=1; i<nums.size(); i++){
+            if(nums[i]>ans.back()){
+                ans.push_back(nums[i]);
+            }
+            else{
+                //just bada number exist krta hai
+                int index = lower_bound(ans.begin(), ans.end(), nums[i])-ans.begin();
+                //replace
+                ans[index] = nums[i];
+            }
+        }
+        return ans.size();
+    }
+
     int lengthOfLIS(vector<int>& nums) {
         int prev =-1;
         int curr =0;
@@ -95,7 +114,10 @@ public:
         // int ans = solveUsingTab(nums);
         // return ans;
 
-        int ans = solveUsingTabSO(nums);
+        // int ans = solveUsingTabSO(nums);
+        // return ans;
+
+        int ans = solveUsingBinarySearch(nums);
         return ans;
     }
 };
