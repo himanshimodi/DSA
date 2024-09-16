@@ -65,6 +65,27 @@ public:
         return dp[0][0];
     }
 
+    int solveUsingTabNoLoopChange(string a, string b){
+        vector<int> currRow(b.length()+1, 0);
+        vector<int> nextRow(b.length()+1, 0);
+
+        for(int i_index = a.length()-1; i_index>=0; i_index--){
+            for(int j_index = b.length()-1; j_index>=0; j_index--){
+                int ans =0;
+                if(a[i_index] == b[j_index]){
+                    ans = 1+ nextRow[j_index+1];
+                }
+                else{
+                    ans = 0+ max(currRow[j_index+1], nextRow[j_index]);
+                }
+                currRow[j_index] = ans;
+            }
+            //updating
+            nextRow = currRow;
+        }
+        return nextRow[0];
+    }
+
     int solveUsingTabSO(string a, string b){
 
         vector<int>curr(a.length()+1, 0);
@@ -102,7 +123,10 @@ public:
         // int ans = solveUsingTab(text1,text2);
         // return ans;
 
-        int ans = solveUsingTabSO(text1,text2);
+        // int ans = solveUsingTabSO(text1,text2);
+        // return ans;
+
+        int ans = solveUsingTabNoLoopChange(text1,text2);
         return ans;
     }
 };
