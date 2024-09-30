@@ -17,6 +17,27 @@ public:
         return ans;
     }
 
+    int solveUsingMem(vector<int>&arr, map<pair<int,int>, int>&maxi, int s, int e, vector<vector<int>>&dp){
+        //base case
+        if(s>=e){
+            return 0;
+        }
+
+        if(dp[s][e]!=-1){
+            return dp[s][e];
+        }
+
+        int ans = INT_MAX;
+        //for partitioning
+        for(int i=s; i<e; i++){
+            ans = min(ans, (maxi[{s,i}]* maxi[{i+1, e}]) 
+                            + solveUsingMem(arr,maxi,s,i,dp)
+                            + solveUsingMem(arr,maxi,i+1,e,dp));
+        }
+        dp[s][e] = ans;
+        return dp[s][e];
+    }
+
     int mctFromLeafValues(vector<int>& arr) {
         //pre computation
         map<pair<int,int>,int> maxi;
@@ -29,7 +50,12 @@ public:
         int n= arr.size();
         int start =0;
         int end = n-1;
-        int ans = solveUsingRe(arr,maxi,start,end);
+
+        // int ans = solveUsingRe(arr,maxi,start,end);
+        // return ans;
+
+        vector<vector<int>>dp(n+2, vector<int>(n+1,-1));
+        int ans = solveUsingMem(arr,maxi,start,end,dp);
         return ans;
     }
 };
