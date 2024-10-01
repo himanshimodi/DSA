@@ -67,6 +67,30 @@ public:
                          // sum kaha se start kiya = second 0
     }
 
+    bool solveUsingTabSO(vector<int>& nums, int target) {
+        int n = nums.size();
+
+        vector<int>curr(target+1, -1);
+        vector<int>next(target+1, -1);
+
+        curr[target] =1;
+        next[target] =1;
+
+        for (int index = n - 1; index >= 0; index--) {
+            for (int sum = target; sum >= 0; sum--) {
+                bool include = 0;
+                if(sum + nums[index] <= target){
+                    include = next[sum + nums[index]];
+                }
+                bool exclude = next[sum];
+                curr[sum] = (include || exclude);
+            }
+            //updating
+            next = curr;
+        }
+        return next[0];
+    }
+
     bool canPartition(vector<int>& nums) {
         // pattern of coin change is used- that is include exclude pattern
         int index = 0;
@@ -89,7 +113,10 @@ public:
         // bool ans = solveUsingMem(nums,index,currSum,target,dp);
         // return ans;
 
-        bool ans = solveUsingTab(nums,target);
+        // bool ans = solveUsingTab(nums,target);
+        // return ans;
+
+        bool ans = solveUsingTabSO(nums,target);
         return ans;
     }
 };
