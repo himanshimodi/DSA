@@ -51,12 +51,36 @@ public:
         return dp[n][target];
     }
 
+    int solveUsingTab(int n, int k, int target) {
+    vector<vector<int>> dp(n + 1, vector<int>(target + 1, 0));
+
+    dp[0][0] = 1;
+
+    for (int i = 1; i <= n; i++) {
+        for (int sum = 0; sum <= target; sum++) {
+            int ans = 0;
+            for (int face = 1; face <= k; face++) {
+                if (sum - face >= 0) {
+                    int recAns = dp[i - 1][sum - face];
+                }
+                ans = (ans%MOD + recAns%MOD)%MOD;
+            }
+            dp[i][sum] = ans;
+        }
+    }
+
+    return dp[n][target];
+    }
+
     int numRollsToTarget(int n, int k, int target) {
         // int ans = solveUsingRe(n, k, target);
         // return ans;
 
-        vector<vector<int>> dp(n + 1, vector<int>(target + 1, -1));
-        int ans = solveUsingMem(n, k, target, dp);
+        // vector<vector<int>> dp(n + 1, vector<int>(target + 1, -1));
+        // int ans = solveUsingMem(n, k, target, dp);
+        // return ans;
+
+        int ans = solveUsingTab(n, k, target);
         return ans;
     }
 };
