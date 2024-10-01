@@ -60,8 +60,9 @@ public:
         for (int sum = 0; sum <= target; sum++) {
             int ans = 0;
             for (int face = 1; face <= k; face++) {
+                int recAns = 0;
                 if (sum - face >= 0) {
-                    int recAns = dp[i - 1][sum - face];
+                   recAns = dp[i - 1][sum - face];
                 }
                 ans = (ans%MOD + recAns%MOD)%MOD;
             }
