@@ -49,6 +49,8 @@ public:
         return dp[i][j];
     }
 
+    const int MOD = 1e9 + 7;
+
     int solveUsingTab(string s, string t) {
         int n = s.size();
         int m = t.size();
@@ -62,9 +64,9 @@ public:
             for (int j = m - 1; j >= 0; j--) {
                 long long ans = 0;
                 if (s[i] == t[j]) {
-                    ans += dp[i + 1][j + 1] + dp[i + 1][j];
+                    ans = (dp[i + 1][j + 1] + dp[i + 1][j]) % MOD;
                 } else {
-                    ans += dp[i + 1][j];
+                    ans = dp[i + 1][j] % MOD;
                 }
                 dp[i][j] = ans;
             }
@@ -72,6 +74,7 @@ public:
 
         return dp[0][0];
     }
+
 
     int numDistinct(string s, string t) {
         int n = s.size();
