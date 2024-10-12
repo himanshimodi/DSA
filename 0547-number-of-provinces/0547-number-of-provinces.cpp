@@ -8,7 +8,7 @@ public:
         int row=src;
         for(int nbrIndex=0; nbrIndex<col; nbrIndex++){
             int nbr = nbrIndex;
-            if(src!=nbr && isConnected[row][nbrIndex]==1){
+            if(isConnected[row][nbrIndex]==1){
                 if(vis[nbr]!=true){
                     dfs(nbr,vis,n, isConnected);
                 }
