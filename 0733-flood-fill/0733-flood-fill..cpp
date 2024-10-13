@@ -1,7 +1,6 @@
 class Solution {
 public:
-    bool isSafe(int newX, int newY, int sr, int sc,map<pair<int,int>,bool>&vis, vector<vector<int>> &ans, int oldColor)
-    {
+    bool isSafe(int newX, int newY, int sr, int sc,map<pair<int,int>,bool>&vis, vector<vector<int>> &ans, int oldColor){
         if (newX >= 0 && newX < ans.size() && newY >= 0 && newY < ans[0].size() && ans[newX][newY] == oldColor && vis[{newX, newY}]==false)
             return true;
         return false;
