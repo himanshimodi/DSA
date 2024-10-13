@@ -1,24 +1,23 @@
 class Solution {
 public:
-    bool isSafe(int i, int j, int oldColor, vector<vector<int>> &image, vector<vector<int>> &ans, map<pair<int, int>, bool> &vis)
+    bool isSafe(int newX, int newY, int sr, int sc,map<pair<int,int>,bool>&vis, vector<vector<int>> &ans, int oldColor)
     {
-        if (i >= 0 && i < image.size() && j >= 0 && j < image[0].size() && ans[i][j] == oldColor && !vis[{i, j}])
-            return 1;
-        return 0;
+        if (newX >= 0 && newX < ans.size() && newY >= 0 && newY < ans[0].size() && ans[newX][newY] == oldColor && vis[{newX, newY}]==false)
+            return true;
+        return false;
     }
     void dfs(int oldColor, int newColor, map<pair<int, int>, bool> &vis, vector<vector<int>> &ans,
-             vector<vector<int>> &image, int sr, int sc)
-    {
+             vector<vector<int>> &image, int sr, int sc){
         vis[{sr, sc}] = 1;
         ans[sr][sc] = newColor;
+
         int dx[] = {-1, 0, 1, 0};
         int dy[] = {0, 1, 0, -1};
-        for (int i = 0; i < 4; i++)
-        {
+
+        for (int i = 0; i < 4; i++){
             int newX = sr + dx[i];
             int newY = sc + dy[i];
-            if (isSafe(newX, newY, oldColor, image, ans, vis))
-            {
+            if (isSafe(newX, newY,sr,sc,vis,ans,oldColor)){
                 dfs(oldColor, newColor, vis, ans, image, newX, newY);
             }
         }
@@ -28,11 +27,9 @@ public:
         vector<vector<int>> ans = image;
         int oldColor = image[sr][sc];
         int newColor = color;
-        if (oldColor == color)
-        {
-            return image;
-        }
         map<pair<int, int>, bool> vis;
+
+
         dfs(oldColor, newColor, vis, ans, image, sr, sc);
         return ans;
     }
