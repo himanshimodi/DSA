@@ -9,8 +9,7 @@ public:
         }
     }
 
-    int orangesRotting(vector<vector<int>> &grid)
-    {   
+    int orangesRotting(vector<vector<int>> &grid){   
         queue<pair<pair<int, int>, int>> q;
         //pair->corrds and second member is minTime
         vector<vector<int>> temp = grid;
