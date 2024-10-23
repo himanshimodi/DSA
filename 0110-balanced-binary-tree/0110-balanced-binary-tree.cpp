@@ -11,44 +11,22 @@
  */
 class Solution {
 public:
+    bool balanced = true;
     int height(TreeNode* root){
-        //base case
-        if(root==NULL){
-            return 0;
+
+        if(root == NULL) return 0;
+
+        int lh = height(root->left);
+        int rh = height(root->right);
+
+        if(balanced && abs(lh-rh)>1){
+            balanced = false;
         }
 
-        int leftHeight = height(root->left);
-        int rightHeight = height(root->right);
-        int finalHeight = max(leftHeight, rightHeight)+1;
-        return finalHeight;
+        return max(lh,rh)+1;
     }
     bool isBalanced(TreeNode* root) {
-        //in boolean 0 = false and 1 = true
-        //base case
-        if(root==NULL){
-            return true;
-        }
-
-        //ek case solve krdo
-        bool leftAns = isBalanced(root->left);
-        bool rightAns = isBalanced(root->right);
-
-        int leftHeight = height(root->left);
-        int rightHeight = height(root->right);
-        int diff = abs(leftHeight-rightHeight);
-        bool currNodeAns=false;
-        if(diff<=1){
-            currNodeAns = true;
-        }
-        else{
-            currNodeAns = false;
-        }
-
-        if(currNodeAns && leftAns && rightAns){
-            return true;
-        }
-        else{
-            return false;
-        }
+        height(root);
+        return balanced;
     }
 };
