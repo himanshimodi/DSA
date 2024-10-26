@@ -26,15 +26,15 @@ public:
             return rightAns;
         }
 
-        //case 3- p is in LST and q is in RST
-        if(p->val < root->val && q->val > root->val){
-            return root;
-        }
+        // //case 3- p is in LST and q is in RST
+        // if(p->val < root->val && q->val > root->val){
+        //     return root;
+        // }
 
-        //case 4 - q is in LST and p is in RST
-        if(q->val < root->val && p->val > root->val){
-            return root;
-        }
+        // //case 4 - q is in LST and p is in RST
+        // if(q->val < root->val && p->val > root->val){
+        //     return root;
+        // }
         return root;
     }
 };
