@@ -11,6 +11,7 @@
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        // TC- O(depth of BST)
         //BC
         if(root == NULL) return NULL;
 
