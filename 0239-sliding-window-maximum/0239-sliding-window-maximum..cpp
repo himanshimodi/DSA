@@ -1,37 +1,37 @@
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-        deque<int>dq;
-        vector<int> ans;
+        deque<int> dq;
+        vector<int>ans;
 
-        //first window of k size
+        //process first window
         for(int i=0; i<k; i++){
-            //remove small elements
-            while(!dq.empty() && nums[i]>=nums[dq.back()]){
+            while(!dq.empty() && nums[dq.back()]<nums[i]){
                 dq.pop_back();
             }
-            //inserting index so that we can check,
-            // out of window ka element(basically next element)
-            dq.push_back(i);
+            //include curr ele
+            dq.push_back(i); //index he dal rhe hai queue mai
         }
-        
-        //store first window ka ans
-        ans.push_back(nums[dq.front()]);
-
-        //remaining windows ko process krna
-        for(int i=k; i<nums.size(); i++){
-            //remove out of window ke elements
-            if(!dq.empty() && i-dq.front()>=k){
-                dq.pop_front();
-            }
-            while(!dq.empty() && nums[i]>=nums[dq.back()]){
-                dq.pop_back();
-            }
-            //inserting index so that we can check,
-            // out of window ka element(basically next element)
-            dq.push_back(i);
+            //store ans
             ans.push_back(nums[dq.front()]);
-        }
+
+            //remaining window ko process
+            for(int i=k; i<nums.size();i++){
+                //removal
+                if(!dq.empty() && i - dq.front() >= k){
+                    dq.pop_front();
+                }
+
+                //addtion
+                while(!dq.empty() && nums[dq.back()]<nums[i]){
+                dq.pop_back();
+                }
+                //include curr ele
+                dq.push_back(i);
+
+                //store ans
+                ans.push_back(nums[dq.front()]);
+            }
         return ans;
     }
 };
