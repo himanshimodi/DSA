@@ -70,8 +70,8 @@ public:
     bool solveUsingTabSO(vector<int>& nums, int target) {
         int n = nums.size();
 
-        vector<int>curr(target+1, -1);
-        vector<int>next(target+1, -1);
+        vector<int>curr(target+1, 0);
+        vector<int>next(target+1, 0);
 
         curr[target] =1;
         next[target] =1;
