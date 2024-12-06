@@ -47,20 +47,20 @@ public:
 
     bool solveUsingTab(vector<int>& nums, int target) {
         int n = nums.size();
-        vector<vector<int>> dp(n + 2, vector<int>(target + 1, 0));
+        vector<vector<int>> dp(target+1, vector<int>(n + 1, 0));
 
-        for (int row = 0; row <= nums.size(); row++) {
-            dp[row][target] = 1;
+        for (int index = 0; index <= n; index++) {
+            dp[target][index] = 1; // Sum of 0 is always possible
         }
 
-        for (int index = n - 1; index >= 0; index--) {
-            for (int sum = target; sum >= 0; sum--) {
+        for (int sum = target; sum >= 0; sum--) {
+            for (int index = n - 1; index >= 0; index--) {
                 bool include = 0;
                 if(sum + nums[index] <= target){
-                    include = dp[index+1][sum + nums[index]];
+                    include = dp[sum + nums[index]][index+1];
                 }
-                bool exclude = dp[index+1][sum];
-                dp[index][sum] = (include || exclude);
+                bool exclude = dp[sum][index+1];
+                dp[sum][index] = (include || exclude);
             }
         }
         return dp[0][0]; //index kaha se start kiya = first 0 
@@ -99,7 +99,7 @@ public:
             totalSum += nums[i];
         }
         if (totalSum & 1) {
-            // odd cannot be partitioned
+            // odd sum cannot be partitioned
             return false;
         }
         int target = totalSum / 2;
@@ -113,10 +113,10 @@ public:
         // bool ans = solveUsingMem(nums,index,currSum,target,dp);
         // return ans;
 
-        // bool ans = solveUsingTab(nums,target);
-        // return ans;
-
-        bool ans = solveUsingTabSO(nums,target);
+        bool ans = solveUsingTab(nums,target);
         return ans;
+
+        // bool ans = solveUsingTabSO(nums,target);
+        // return ans;
     }
 };
