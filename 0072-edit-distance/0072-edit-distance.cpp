@@ -93,45 +93,43 @@ public:
         return dp[0][0];
     }
 
-    int solveUsingTabSO(string &a, string &b ){
+    int solveUsingTabSO(string &a, string &b) {
+        // step 1
+        vector<int> prev(b.length() + 1, 0);
+        vector<int> curr(b.length() + 1, 0);
 
-        //step 1
-        vector<int> prev(b.length()+1, 0);
-        vector<int> curr(b.length()+1, 0); 
+        if (a.empty()) return b.length();
+        if (b.empty()) return a.length();
 
-        // analyse base cases
-        for(int col=0; col<=b.length(); col++){
-            prev[col] = b.length()-col;
+        // analyze base cases for the first row (when a is empty)
+        for (int col = 0; col <= b.length(); col++) {
+            prev[col] = b.length() - col;
         }
 
-        // //initialise krre hai for pattern matching
-        // for(int row=0; row<=a.length(); row++){
-        //     next[row] = a.length()-row;
-        // }
-
-        //Re logic
-        for(int i=a.length()-1; i>=0; i--){
-            curr[b.length()] = a.length() - i;
-            for(int j=b.length()-1;j>=0; j--){
+        // Re logic
+        for (int i = a.length() - 1; i >= 0; i--) {
+            //MOST IMP LINE
+            curr[b.length()] = a.length() - i; 
+            for (int j = b.length() - 1; j >= 0; j--) {
                 int ans = 0;
-                //matching characters
-                if(a[i] == b[j]){
-                ans = 0 + prev[j+1];
+                // matching chars
+                if (a[i] == b[j]) {
+                    ans = 0 + prev[j + 1];
                 }
-                //not matching characters
-                else{
-                int replace = 1 + prev[j+1];
-                int insert = 1 + curr[j+1];
-                int remove = 1 + prev[j];
-                ans = min(insert,min(remove,replace));
+                // not matching chars
+                else {
+                    int replace = 1 + prev[j + 1];
+                    int insert = 1 + curr[j + 1];
+                    int remove = 1 + prev[j];
+                    ans = min(insert, min(remove, replace));
                 }
-                //store ans
+                // store ans
                 curr[j] = ans;
             }
             prev = curr;
         }
-    return curr[0];
-}
+        return curr[0];
+    }
 
     int minDistance(string word1, string word2) {
         int i=0;
