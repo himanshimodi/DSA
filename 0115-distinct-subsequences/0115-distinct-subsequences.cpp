@@ -74,6 +74,32 @@ public:
         return dp[0][0];
     }
 
+    int solveUsingTabSO(string &s, string &t) {
+        int n = s.size();
+        int m = t.size();
+        vector<long long>currRow(n+2,0);
+        vector<long long>nextRow(n+2,0);
+
+        currRow[m] = 1;
+
+        for (int i = n - 1; i >= 0; i--) {
+            nextRow[m]=1;
+            for (int j = m - 1; j >= 0; j--) {
+                long long ans = 0;
+                if (s[i] == t[j]) {
+                    ans = (nextRow[j + 1] + nextRow[j]) % MOD;
+                } else {
+                    ans = nextRow[j] % MOD;
+                }
+                currRow[j] = ans%MOD;
+            }
+            //shifting
+            nextRow = currRow;
+        }
+
+        return nextRow[0];
+    }
+
 
     int numDistinct(string s, string t) {
         int n = s.size();
@@ -88,7 +114,10 @@ public:
         // int ans = solveUsingMem(s, t, n, m, i, j, dp);
         // return ans;
 
-        int ans = solveUsingTab(s, t);
+        // int ans = solveUsingTab(s, t);
+        // return ans;
+
+        int ans = solveUsingTabSO(s, t);
         return ans;
     }
 };
