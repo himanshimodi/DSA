@@ -100,6 +100,30 @@ public:
         return nextRow[0];
     }
 
+    int solveUsingTabSO2(string &s, string &t) {
+        int n = s.size();
+        int m = t.size();
+        vector<long long>currRow(n+2,0);
+        // vector<long long>nextRow(n+2,0);
+
+        currRow[m] = 1;
+
+        for (int i = n - 1; i >= 0; i--) {
+            // nextRow[m]=1;
+            for (int j = 0; j <= m-1; j++) {
+                long long ans = 0;
+                if (s[i] == t[j]) {
+                    ans = (currRow[j + 1] + currRow[j]) % MOD;
+                } else {
+                    ans = currRow[j] % MOD;
+                }
+                currRow[j] = ans%MOD;
+            }
+            //shifting
+            // nextRow = currRow;
+        }
+        return currRow[0];
+    }
 
     int numDistinct(string s, string t) {
         int n = s.size();
@@ -117,7 +141,7 @@ public:
         // int ans = solveUsingTab(s, t);
         // return ans;
 
-        int ans = solveUsingTabSO(s, t);
+        int ans = solveUsingTabSO2(s, t);
         return ans;
     }
 };
