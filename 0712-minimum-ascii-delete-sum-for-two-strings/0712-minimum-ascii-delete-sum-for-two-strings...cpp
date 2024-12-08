@@ -66,13 +66,43 @@ public:
         return dp[i][j];
     }
 
+    int solveTab(string &s1, string &s2){
+        vector<vector<int>>dp(s1.length()+1,vector<int>(s2.length()+1,0));
+
+        //initialise base cases
+        for(int row=s1.length()-1; row>=0;row--){
+            dp[row][s2.length()] = dp[row+1][s2.length()]+s1[row] ; 
+        }
+        for(int col=s2.length()-1; col>=0;col--){
+            dp[s1.length()][col] = dp[s1.length()][col+1]+s2[col] ; 
+        }
+        
+        for(int i=s1.length()-1;i>=0;i--){
+            for(int j=s2.length()-1;j>=0;j--){
+                //ek case solve krdo -> that is if chars match
+                if(s1[i]==s2[j]){
+                    dp[i][j] = dp[i+1][j+1];
+                }
+                else{ //chars dont match
+                    int cost1 = s1[i] + dp[i+1][j];
+                    int cost2 = s2[j] + dp[i][j+1];
+                    dp[i][j] = min(cost1,cost2);
+                }
+            }
+        }
+        return dp[0][0];
+    }
+
     int minimumDeleteSum(string s1, string s2) {
 
         // int ans = solveRE(s1,s2,0,0);
         // return ans;
 
-        vector<vector<int>>dp(s1.length()+1,vector<int>(s2.length()+1,-1));
-        int ans = solveMem(s1,s2,0,0,dp);
+        // vector<vector<int>>dp(s1.length()+1,vector<int>(s2.length()+1,-1));
+        // int ans = solveMem(s1,s2,0,0,dp);
+        // return ans;
+
+        int ans = solveTab(s1,s2);
         return ans;
     }
 };
