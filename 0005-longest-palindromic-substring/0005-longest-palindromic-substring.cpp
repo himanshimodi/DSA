@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool checkPalindrome(int i, int j, string &s){
+    bool RE(int i, int j, string &s){
         while(i<j){
             if(s[i]!=s[j]){
                 return false;
@@ -10,17 +10,37 @@ public:
         }
         return true;
     }
-    string longestPalindrome(string s) {
-    string ans="";
-    //extract all substrings
-    for(int i=0;i<s.size();i++){
-        for(int j=i; j<s.size();j++){
-            if(checkPalindrome(i,j,s)){
-                string t=s.substr( i, j-i+1); //store palindromic substring in t
-                ans= t.size()>ans.size() ? t : ans;
-            }
-        }            
+
+    //MEMOIZATION
+    bool Mem(int i, int j, string &s, vector<vector<int>>& dp) {
+        if (i >= j) return true;  // Base case: Single character or empty substring
+
+        if (dp[i][j] != -1) return dp[i][j];  // Use memoization if available
+
+        if (s[i] == s[j]) {
+            return dp[i][j] = Mem(i + 1, j - 1, s, dp);
+        }
+        dp[i][j] = false;
+        return dp[i][j];
     }
-    return ans;
+
+    string longestPalindrome(string s) {
+        int n = s.size();
+        vector<vector<int>> dp(n, vector<int>(n, -1));
+        string ans = "";
+
+        // Extract all substrings
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                if (Mem(i, j, s, dp)) {
+                    string t = s.substr(i, j - i + 1);  // Store palindromic substring in t
+                    if (t.size() > ans.size()) {
+                        ans = t;
+                    }
+                }
+            }
+        }
+
+        return ans;
     }
 };
