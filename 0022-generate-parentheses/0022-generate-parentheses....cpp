@@ -1,38 +1,30 @@
 class Solution {
 public:
-    void solve(vector<string> &ans, int n, int open, int close, string output){
-
-        //base case
-        if(open == 0 && close == 0){
+    void solve(vector<string>& ans, string &output, int open, int close, int n) {
+        // BC
+        if (open == n && close == n) {
             ans.push_back(output);
             return;
         }
 
-
-        //include open bracket
-        if(open > 0){
+        if (open < n) {
             output.push_back('(');
-            solve(ans, n, open-1, close, output);
-            //backtrack
-            output.pop_back();
+            solve(ans, output, open + 1, close, n);
+            output.pop_back(); //backtrack
         }
 
-        //include close bracket
-        if(close > open){
+        if (close < open) {
             output.push_back(')');
-            solve(ans, n, open, close-1, output);
-            //backtrack
-            output.pop_back();
+            solve(ans, output, open, close + 1, n);
+            output.pop_back(); //backtrack
         }
     }
 
-    vector<string> generateParenthesis(int n){
+    vector<string> generateParenthesis(int n) {
         vector<string> ans;
-        int open = n;
-        int close = n;
-        string output="";
-        solve ( ans, n , open, close, output);
-        
+        string output = "";
+        int open = 0, close = 0;
+        solve(ans, output, open, close, n);
         return ans;
     }
 };
