@@ -1,41 +1,40 @@
 class Solution {
 public:
     long long continuousSubarrays(vector<int>& nums) {
-        int right = 0, left = 0;
-        int curMin, curMax;
-        long long windowLen = 0, total = 0;
+        int left = 0, right = 0;
+        long long count = 0;  // Total count of valid subarrays
 
-        // Initialize window with the first element
-        curMin = curMax = nums[right];
+        // Min and max heaps storing indices, sorted by nums[index] values
+        priority_queue<int, vector<int>, function<bool(int, int)>> minHeap(
+            [&nums](int a, int b) { return nums[a] > nums[b]; });
+        priority_queue<int, vector<int>, function<bool(int, int)>> maxHeap(
+            [&nums](int a, int b) { return nums[a] < nums[b]; });
 
-        for (right = 0; right < nums.size(); right++) {
-            // Update min and max for the current window
-            curMin = min(curMin, nums[right]);
-            curMax = max(curMax, nums[right]);
+        while (right < nums.size()) {
+            // Add current index to both heaps
+            minHeap.push(right);
+            maxHeap.push(right);
 
-            if (curMax - curMin > 2) {
-                windowLen = right - left;
-                total += (windowLen * (windowLen + 1) / 2);
+            // While window violates |nums[i] - nums[j]| ≤ 2 condition
+            // Shrink window from left and remove outdated indices
+            while (left < right &&
+                   nums[maxHeap.top()] - nums[minHeap.top()] > 2) {
+                left++;
 
-                left = right;
-                curMin = curMax = nums[right];
-
-                // Expand left boundary while maintaining the condition
-                while (left > 0 && abs(nums[right] - nums[left - 1]) <= 2) {
-                    left--;
-                    curMin = min(curMin, nums[left]);
-                    curMax = max(curMax, nums[left]);
+                // Remove indices that are now outside window
+                while (!maxHeap.empty() && maxHeap.top() < left) {
+                    maxHeap.pop();
                 }
-                // Remove overcounted subarrays if left boundary expanded
-                if (left < right) {
-                    windowLen = right - left;
-                    total -= (windowLen * (windowLen + 1) / 2);
+                while (!minHeap.empty() && minHeap.top() < left) {
+                    minHeap.pop();
                 }
             }
+
+            // Add count of all valid subarrays ending at right
+            count += right - left + 1;
+            right++;
         }
 
-        windowLen = right - left;
-        total += (windowLen * (windowLen + 1) / 2);
-        return total;
+        return count;
     }
 };
