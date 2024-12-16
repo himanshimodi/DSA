@@ -40,7 +40,7 @@ public:
     //     return max(maxLeftSum, max(maxRightSum,CBS));
     // }
 
-    //THE FAMOUS KADANE'S ALGO. TC-O(N)
+    //THE FAMOUS KADANE'S ALGO. TC-O(N) SC-O(1)
 
     int kadaneAlgo(vector<int>&nums){
         int ans = INT_MIN;
