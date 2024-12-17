@@ -37,7 +37,7 @@ public:
                 maxHeap.pop();
 
                 ans += nextchar;
-                nextcount--;
+                nextcount--;//this happens only one time
 
                 // Push remaining counts back to the heap
                 maxHeap.push({currchar, currcount});
