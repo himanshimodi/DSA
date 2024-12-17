@@ -33,7 +33,7 @@ public:
             return -1;
 
         int start = *min_element(bloomDay.begin(), bloomDay.end()); // at least 1 flower is bloomed
-        int end = *max_element(bloomDay.begin(), bloomDay.end());   // all flowers are bloomed, pkka bna lunga
+        int end = *max_element(bloomDay.begin(), bloomDay.end());   // all flowers are bloomed, pkka bna lungi
         int ans = 0;
         while (start <= end)
         {
