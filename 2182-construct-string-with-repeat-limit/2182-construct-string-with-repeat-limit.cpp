@@ -36,9 +36,9 @@ public:
                 int nextcount = maxHeap.top().second;
                 maxHeap.pop();
 
-                ans += nextchar;
-                nextcount--;
-
+                while(nextcount--){
+                    ans += nextchar;
+                }
                 // Push remaining counts back to the heap
                 maxHeap.push({currchar, currcount});
                 if (nextcount > 0) {
