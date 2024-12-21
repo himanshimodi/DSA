@@ -9,7 +9,7 @@ public:
         for (int i = 0; i < input.size(); i++) {
             int curr = input[i];
 
-            // put ans in stack
+            // put ans in stack, input[s.top()]->coz we want to access the index
             while (s.top() != -1 && input[s.top()] >= curr) {
                 s.pop();
             }
@@ -32,7 +32,7 @@ public:
         for (int i = input.size() - 1; i >= 0; i--) {
             int curr = input[i];
 
-            // put ans in stack
+            // put ans in stack, input[s.top()]->coz we want to access the index
             while (s.top() != -1 && input[s.top()] >= curr) {
                 s.pop();
             }
