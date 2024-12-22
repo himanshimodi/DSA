@@ -11,36 +11,25 @@
 class Solution {
 public:
     vector<int> nextLargerNodes(ListNode* head) {
-        vector<int> v;
-        
-
-        // Extract values from the linked list into the vector 'v'
-        while (head != nullptr) {
+        vector<int>v;
+        while(head!=NULL){
             v.push_back(head->val);
             head = head->next;
         }
+        vector<int>ans(v.size(),0);
+        stack<int>st;
+        st.push(0);
 
-        // Initialize the answer vector with zeros
-        vector<int> ans(v.size());
-
-        stack<int> st;
-        for (int i = v.size() - 1; i >= 0; i--) {
+        for(int i=v.size()-1; i>=0;i--){
             int curr = v[i];
-
-            // Maintain elements in the stack in decreasing order
-            while (!st.empty() && st.top() <= curr) {
+            while(!st.empty() && st.top()<=curr){
                 st.pop();
             }
-
-            // If stack is not empty, the top element is the next greater element
             if (!st.empty()) {
                 ans[i] = st.top();
             }
-
-            // Push the current element onto the stack
             st.push(curr);
         }
-
         return ans;
     }
 };
