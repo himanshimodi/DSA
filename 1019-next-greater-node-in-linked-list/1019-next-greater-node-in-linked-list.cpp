@@ -18,7 +18,6 @@ public:
         }
         vector<int>ans(v.size(),0);
         stack<int>st;
-        st.push(0);
 
         for(int i=v.size()-1; i>=0;i--){
             int curr = v[i];
