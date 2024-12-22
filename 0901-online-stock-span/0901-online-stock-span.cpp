@@ -1,6 +1,6 @@
 class StockSpanner {
 public:
-    stack<pair<int,int>> st;
+    stack<pair<int,int>> st; //pair->{value, span}
     StockSpanner() {
         
     }
