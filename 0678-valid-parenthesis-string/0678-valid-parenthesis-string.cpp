@@ -29,11 +29,11 @@ public:
             if(openBracket.top()>asterisks.top()){
                 return false;
             }
-            else{
+            // else{
                 openBracket.pop();
                 asterisks.pop();
-            }
+            // }
         }
-        return true;
+        return openBracket.empty();;
     }
 };
