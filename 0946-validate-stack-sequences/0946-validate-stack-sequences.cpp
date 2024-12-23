@@ -10,15 +10,6 @@ public:
                 st.pop();
                 j++;
             }
-        // }
-        // while(j<=n){
-        //     if(st.top() == popped[j]){
-        //         st.pop();
-        //         j++;
-        //     }
-        //     else{
-        //         return false;
-        //     }
         }
         if(st.empty()){
             return true;
