@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // TC=O(n) and SC=O(n)
     bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
         int n = pushed.size();
         stack<int>st;
