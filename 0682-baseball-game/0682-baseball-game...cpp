@@ -1,7 +1,7 @@
 class Solution {
 public:
     int calPoints(vector<string>& ops) {
-        vector<int>record;
+        // vector<int>record;
         int sum=0;
         stack<int>st;
         for(int i=0;i<ops.size();i++){
@@ -29,7 +29,7 @@ public:
             }
         }
         while(!st.empty()){
-            record.push_back(st.top());
+            // record.push_back(st.top());
             sum+=st.top();
             st.pop();
         }
