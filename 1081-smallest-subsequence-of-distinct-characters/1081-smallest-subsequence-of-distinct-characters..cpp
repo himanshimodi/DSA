@@ -1,5 +1,6 @@
 class Solution {
 public:
+     //SAME CODE AS 316
     string smallestSubsequence(string s) {
         vector<int>lastIndex(26,0);
         for(int i=0;i<s.size();i++){
