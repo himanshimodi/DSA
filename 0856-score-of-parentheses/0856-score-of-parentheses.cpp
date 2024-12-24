@@ -1,19 +1,23 @@
 class Solution {
 public:
     int scoreOfParentheses(string s) {
-        stack<char>st;
-        int count=0;
-        for(char ch:s){
-            if(ch=='('){
-                st.push(ch);
+        stack<int> st;
+        int ind = 0;
+        
+        for(auto i : s){
+			// if we find open parenthesis
+			// push the current score into the stack
+            if(i == '('){
+                st.push(ind);
+				// reset the score to 0
+                ind = 0;
             }
-            else if(ch==')'){
-                if(!st.empty() && st.top()=='('){
-                    st.pop();
-                    count++;
-                }
+            else{ // if we find close parenthesis
+                ind = st.top() + max(ind*2 ,1);
+                st.pop();
             }
+                
         }
-        return count;
+        return ind;
     }
 };
