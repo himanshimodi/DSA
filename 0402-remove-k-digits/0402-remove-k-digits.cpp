@@ -3,7 +3,7 @@ public:
     string removeKdigits(string num, int k) {
         string ans;
         stack<char>st;
-        for(auto digit:num){
+        for(char digit:num){
             if(k>0){
                 while(!st.empty() && st.top()>digit){
                     st.pop();
