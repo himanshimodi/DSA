@@ -9,26 +9,19 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        if (head == NULL || head->next == NULL) {
-            return false; // No cycle if the list is empty or has only one node
-        }
-
         ListNode* slow = head;
         ListNode* fast = head;
 
-        while(fast != NULL){
-            fast= fast->next;
+        while(fast!=NULL){
+            fast = fast->next;
             if(fast!=NULL){
-                fast=fast->next;
-                slow=slow->next;
+                fast = fast->next;
+                slow = slow->next;
             }
             if(slow == fast){
-                //loop is present
                 return true;
             }
         }
-
-        //loop is absent
         return false;
     }
 };
