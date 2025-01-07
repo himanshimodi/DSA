@@ -10,32 +10,25 @@
  */
 class Solution {
 public:
-    ListNode* deleteDuplicates(ListNode* head) {
-        //check if empty
-        if(head == NULL){
+    ListNode* deleteDuplicates(ListNode*& head) {
+        if(head==NULL){
             cout<<"LL is empty"<<endl;
             return head;
         }
-        //single node
         if(head->next == NULL){
-            cout<<"Single node in LL"<<endl;
             return head;
         }
-        //more than one node
         ListNode* curr = head;
-        while(curr!=NULL){
-            if((curr->next != NULL) && (curr->val == curr->next->val)){
-                //equal
+        while(curr->next!=NULL){
+            if(curr->val == curr->next->val){
                 ListNode* temp = curr->next;
                 curr->next = curr->next->next;
 
-                //delete node
                 temp->next = NULL;
                 delete temp;
             }
             else{
-                //not equal
-                curr=curr->next;
+                curr = curr->next;
             }
         }
         return head;
