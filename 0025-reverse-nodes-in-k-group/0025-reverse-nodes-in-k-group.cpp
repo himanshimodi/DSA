@@ -10,48 +10,43 @@
  */
 class Solution {
 public:
-    int findLength(ListNode* head) {
-        int len = 0;
+    int findLen(ListNode*& head){
         ListNode* temp = head;
+        int count =0;
 
-        while (temp != NULL) {
+        while(temp!=NULL){
+            count++;
             temp = temp->next;
-            len++;
         }
-        return len;
+        return count;
     }
-
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if (head == NULL || head->next == NULL) {
-            return head; // If the list is empty or has only one node, return as is
+
+        if(head == NULL || head->next == NULL){
+            return head;
         }
 
-        int len = findLength(head);
-
-        if (k > len) {
-            return head; // If k is greater than the length of the list, return the original list
+        int totalLen = findLen(head);
+        if(totalLen < k){
+            return head;
         }
-
-        // Step 1: Reverse k nodes of the list
         ListNode* prev = NULL;
         ListNode* curr = head;
-        ListNode* nextNode = NULL;
-        int count = 0;
+        ListNode* nextnode = NULL;
+        int c =0;
 
-        while (count < k && curr != NULL) {
-            nextNode = curr->next;
+        while(curr!=NULL && c<k){
+            nextnode = curr->next;
             curr->next = prev;
             prev = curr;
-            curr = nextNode;
-            count++;
+            curr= nextnode;
+            c++;
         }
 
-        // Step 2: Recursive call to reverse the remaining nodes
-        if (nextNode != NULL) {
-            head->next = reverseKGroup(nextNode, k);
+        //RE
+        if(nextnode!=NULL){
+            head->next = reverseKGroup(nextnode,k);
         }
-
-        // Step 3: Return the head of the modified list
         return prev;
     }
 };
