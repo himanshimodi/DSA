@@ -30,23 +30,25 @@ public:
         if(totalLen < k){
             return head;
         }
-        ListNode* prev = NULL;
-        ListNode* curr = head;
-        ListNode* nextnode = NULL;
-        int c =0;
+        else{
+            ListNode* prev = NULL;
+            ListNode* curr = head;
+            ListNode* nextnode = NULL;
+            int c =0;
 
-        while(curr!=NULL && c<k){
-            nextnode = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr= nextnode;
-            c++;
-        }
+            while(curr!=NULL && c<k){
+                nextnode = curr->next;
+                curr->next = prev;
+                prev = curr;
+                curr= nextnode;
+                c++;
+            }
 
-        //RE
-        if(nextnode!=NULL){
-            head->next = reverseKGroup(nextnode,k);
+            //RE
+            if(nextnode!=NULL){
+                head->next = reverseKGroup(nextnode,k);
+            }
+            return prev;
         }
-        return prev;
     }
 };
