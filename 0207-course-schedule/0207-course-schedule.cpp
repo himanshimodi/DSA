@@ -1,7 +1,6 @@
 class Solution {
 public:
-    void topoSortBfs(int n, vector<int>& topoOrder,
-                     unordered_map<int, list<int>>& adjList) {
+    void topoSortBfs(int n, vector<int>& topoOrder,unordered_map<int, list<int>>& adjList) {
         queue<int> q;
         unordered_map<int, int> indegree;
 
