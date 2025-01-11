@@ -1,31 +1,38 @@
 class Solution {
 public:
-    void dfs(int src, unordered_map<int,bool>&vis, int n, vector<vector<int>>& isConnected){
-        vis[src]=true;
+    //Revision1
+    void bfs(int src, vector<vector<int>>& isConnected, vector<bool>&vis){
+        queue<int>q;
+        //initial state
+        q.push(src);
+        vis[src] = true;
 
-        //node row ke nbr nikalo
-        int col=n;
-        int row=src;
-        for(int nbrIndex=0; nbrIndex<col; nbrIndex++){
-            int nbr = nbrIndex;
-            if(isConnected[row][nbrIndex]==1){
-                if(vis[nbr]!=true){
-                    dfs(nbr,vis,n, isConnected);
+        //bfs chalao
+        while(!q.empty()){
+            int currNode = q.front();
+            q.pop();
+
+            //check all nbr(cities) that are connected to this node(city)
+            for(int nbr = 0; nbr < isConnected.size(); nbr++) {
+                if(isConnected[currNode][nbr] && !vis[nbr]){
+                    vis[nbr] = true;
+                    q.push(nbr);
                 }
             }
         }
     }
+
     int findCircleNum(vector<vector<int>>& isConnected) {
-        int n= isConnected.size();
-        unordered_map<int,bool>vis;
-        int count = 0;
-        for(int i=0; i<n; i++){
-            if(vis[i]!=true){
-                dfs(i,vis,n,isConnected);
-                count++;
+        //number of traversals is my ans
+        vector<bool>vis(isConnected.size(),false);
+        int provinces=0;
+
+        for(int i=0;i<isConnected.size();i++){
+            if(!vis[i]){
+                bfs(i,isConnected,vis);
+                provinces++;
             }
         }
-        return count;
+        return provinces;
     }
-
 };
