@@ -10,20 +10,29 @@ using namespace std;
 class Solution {
   public:
   
-    bool recursive(vector<int>& arr, vector<vector<int>>& dp, int n, int sum){
-        if(sum==0) return true;
-        if(n==0) return false;
-        if(dp[n][sum]!=-1) return dp[n][sum];
-        if(arr[n-1]<=sum){
-            return dp[n][sum] = recursive(arr, dp, n-1, sum-arr[n-1]) || recursive(arr, dp, n-1, sum);
+    bool solve(vector<int>&arr,int ind,int target,vector<vector<int>>&dp){
+        
+        if(target==0){
+            return(true);
         }
-        else{
-            return dp[n][sum] = recursive(arr, dp, n-1, sum);
+        if(ind==0){
+            return(arr[0]==target);
         }
+        if(dp[ind][target]!=-1){
+            return(dp[ind][target]);
+        }
+        bool nottake = solve(arr,ind-1,target,dp);
+        bool take = false;
+        if(target>=arr[ind]){
+            take = solve(arr,ind-1,target-arr[ind],dp);
+        }
+        return(dp[ind][target]=(nottake|take));
     }
     bool isSubsetSum(vector<int>& arr, int target) {
-        vector<vector<int>> dp(arr.size()+1, vector<int>(target+1, -1));
-        return recursive(arr, dp, arr.size(), target);
+        // code here
+        int n = arr.size();
+        vector<vector<int>>dp(n, vector<int>(target+1,-1));
+        return(solve(arr,n-1,target,dp));
     }
 };
 
