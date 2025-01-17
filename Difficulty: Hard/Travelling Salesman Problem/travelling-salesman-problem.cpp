@@ -6,6 +6,10 @@ using namespace std;
 // } Driver Code Ends
 
 
+// Complexity Analysis:
+// TC-O(n^2 . 2^n)
+// SC-O(n . 2^n)
+
 #include <iostream>
 #include <vector>
 #include <cmath> // For pow()
