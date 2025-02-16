@@ -55,7 +55,8 @@ bool searchWord(TrieNode* root, string word) {
     return recKaAns;
 }
 
-bool searchPrefix(TrieNode* root, string word) {
+bool searchPrefix(TrieNode* root, string word) { 
+    //same as search just dont check for terminal
     //base case
     if(word.length() == 0) {
         return true;
