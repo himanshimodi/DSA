@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //TC & SC =O(n)
     vector<int> productExceptSelf(vector<int>& nums) {
         int n = nums.size();
         vector<int> prefix(n,1);
