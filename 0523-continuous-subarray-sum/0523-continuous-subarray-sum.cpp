@@ -15,6 +15,7 @@ public:
             }
             if(map.find(sum)!= map.end()){
                 //present in map
+                if(i-map[sum]>1)
                 return true;
             }
             else{
