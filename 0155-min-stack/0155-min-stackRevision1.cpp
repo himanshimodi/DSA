@@ -3,33 +3,31 @@ public:
     MinStack() {
         
     }
-
-    vector<pair<int,int>>v; //pair->{value,min val till now}
-    
+    vector<pair<int,int>>ans;
     void push(int val) {
-        if(v.empty()){
-            v.push_back({val,val});
+        if(ans.empty()){
+            ans.push_back({val,val});
             return;
         }
         else{
             int min = val;
-            if(v.back().second < min){
-                min = v.back().second;
+            if(ans.back().second < min){
+                min = ans.back().second;
             }
-            v.push_back({val,min});
+            ans.push_back({val,min});
         }
     }
     
     void pop() {
-        v.pop_back();
+        ans.pop_back();
     }
     
     int top() {
-        return v.back().first;
+        return ans.back().first;
     }
     
     int getMin() {
-        return v.back().second;
+        return ans.back().second;
     }
 };
 
