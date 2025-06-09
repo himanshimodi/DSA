@@ -1,54 +1,44 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        if (s.length() < t.length()) {
+        if (t.size() > s.size()) {
             return "";
         }
-
         int ansIndex = -1;
         int ansLen = INT_MAX;
-
         unordered_map<char, int> smap;
         unordered_map<char, int> tmap;
-
-        // Fill values in tmap
+        int start = 0;
+        int end = 0; // variable size ki window hai thats why
+        int count = 0;
         for (auto i : t) {
             tmap[i]++;
         }
-
-        int start = 0, end = 0, c = 0;
-
-        // Variable size window logic
-        while (end < s.length()) {
+        while (end < s.size()) { // variable size window
             char ch = s[end];
             smap[ch]++;
-            // If character matches
+
+            // if character matches
             if (smap[ch] <= tmap[ch]) {
-                c++;
+                count++;
             }
 
-            // If all characters are matched
-            if (c == t.length()) {
-                // Minimize the window (shrink the window)
-                while (smap[s[start]] > tmap[s[start]] || tmap[s[start]] == 0) {
+            if (count == t.size()) {
+                while (smap[s[start]] > tmap[s[start]]) {
                     if (smap[s[start]] > tmap[s[start]]) {
+                        // shrink krlo so minimise
                         smap[s[start]]--;
                     }
                     start++;
                 }
-
-                // Store the result
                 int windowLen = end - start + 1;
                 if (windowLen < ansLen) {
                     ansLen = windowLen;
                     ansIndex = start;
                 }
             }
-            // Expand the window
             end++;
         }
-
-        // If no valid window is found
         if (ansIndex == -1) {
             return "";
         } else {
