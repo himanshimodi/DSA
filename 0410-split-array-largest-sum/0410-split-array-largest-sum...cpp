@@ -1,6 +1,7 @@
 class Solution {
 public:
-
+    // SIMILAR SUMS ARE PAINTER'S PARTITION PROBLEM ON GFG AND 
+    // ALLOCATE MINIMUM BOOK PROBLEM ON GFG
     bool isPossible(vector<int>& nums, int k,int mid){
         int subarray=1;
         int arrelement=0;
