@@ -1,6 +1,8 @@
 class Solution {
 public:
-
+    // SIMILAR SUMS ARE PAINTER'S PARTITION PROBLEM ON GFG AND 
+    // ALLOCATE MINIMUM BOOK PROBLEM ON GFG
+    // AGGRESSIVE COWS ON GFG IS SIMILAR BUT DIFFERENT, PLEASE REFER
     bool isPossible(vector<int>& nums, int k,int mid){
         int subarray=1;
         int arrelement=0;
