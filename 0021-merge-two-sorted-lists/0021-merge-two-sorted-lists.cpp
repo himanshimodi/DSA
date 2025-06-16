@@ -11,32 +11,22 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* head1, ListNode* head2) {
-        if (head1 == NULL)
+        //BC
+        if(head1 == NULL){
             return head2;
-        if (head2 == NULL)
+        }
+        if(head2 == NULL){
             return head1;
-            
-        ListNode* ans = new ListNode(-1);
-        ListNode* mptr = ans;
-
-        while (head1 != NULL && head2 != NULL) {
-            if (head1->val <= head2->val) {
-                mptr->next = head1;
-                mptr = head1;
-                head1 = head1->next;
-            } else {
-                mptr->next = head2;
-                mptr = head2;
-                head2 = head2->next;
-            }
-        }
-        if (head1 == NULL) {
-            mptr->next = head2;
-        }
-        if (head2 == NULL) {
-            mptr->next = head1;
         }
 
-        return ans->next;
+        //ek case solve krdo
+        if(head1->val < head2->val){
+            head1->next = mergeTwoLists(head1->next,head2);
+            return head1;
+        }
+        else{
+            head2->next = mergeTwoLists(head1,head2->next);
+            return head2;
+        }
     }
 };
