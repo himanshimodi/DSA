@@ -1,122 +1,64 @@
 class Solution {
 public:
-    bool solveUsingRe(vector<int>& arr, int index, int sum, int target) {
-        // base case
-        if (index >= arr.size()) {
+    bool solveRE(int i, int sum, int target, vector<int>&nums){
+        //BC
+        if(i>=nums.size()){
             return false;
         }
-        if (sum > target) {
+        if(target < sum){
             return false;
         }
-        if (sum == target) {
-            return true;
-        }
-        // include exclude ek case solve krdo
-        int include = solveUsingRe(arr, index + 1, sum + arr[index], target);
-        int exclude = solveUsingRe(arr, index + 1, sum, target);
-
-        return include || exclude;
-    }
-
-    // 2D DP
-    bool solveUsingMem(vector<int>& arr, int index, int sum, int target,
-                       vector<vector<int>>& dp) {
-        // base case
-        if (index >= arr.size()) {
-            return false;
-        }
-        if (sum > target) {
-            return false;
-        }
-        if (sum == target) {
+        if(sum == target){
             return true;
         }
 
-        // check if already stored
-        if (dp[index][sum] != -1) {
-            return dp[index][sum];
-        }
-        // include exclude ek case solve krdo
-        int include =
-            solveUsingMem(arr, index + 1, sum + arr[index], target, dp);
-        int exclude = solveUsingMem(arr, index + 1, sum, target, dp);
+        //ek case
+        int inc = solveRE(i+1,sum+nums[i],target,nums);
+        int exc = solveRE(i+1,sum,target,nums);
 
-        dp[index][sum] = (include || exclude);
-        return dp[index][sum];
+        return inc || exc;
     }
 
-    bool solveUsingTab(vector<int>& nums, int target) {
-        int n = nums.size();
-        vector<vector<int>> dp(target+1, vector<int>(n + 1, 0));
-
-        for (int index = 0; index <= n; index++) {
-            dp[target][index] = 1; // Sum of 0 is always possible
+    bool memo(int i, int sum, int target, vector<int>&nums, vector<vector<int>>&dp){
+        //BC
+        if(i>=nums.size()){
+            return false;
+        }
+        if(target < sum){
+            return false;
+        }
+        if(sum == target){
+            return true;
         }
 
-        for (int sum = target; sum >= 0; sum--) {
-            for (int index = n - 1; index >= 0; index--) {
-                bool include = 0;
-                if(sum + nums[index] <= target){
-                    include = dp[sum + nums[index]][index+1];
-                }
-                bool exclude = dp[sum][index+1];
-                dp[sum][index] = (include || exclude);
-            }
+        //step 3
+        if(dp[i][sum]!=-1){
+            return dp[i][sum];
         }
-        return dp[0][0]; //index kaha se start kiya = first 0 
-                         // sum kaha se start kiya = second 0
-    }
+        //ek case
+        int inc = memo(i+1,sum+nums[i],target,nums,dp);
+        int exc = memo(i+1,sum,target,nums,dp);
 
-    bool solveUsingTabSO(vector<int>& nums, int target) {
-        int n = nums.size();
-
-        vector<int>curr(target+1, 0);
-        vector<int>next(target+1, 0);
-
-        curr[target] =1;
-        next[target] =1;
-
-        for (int index = n - 1; index >= 0; index--) {
-            for (int sum = target; sum >= 0; sum--) {
-                bool include = 0;
-                if(sum + nums[index] <= target){
-                    include = next[sum + nums[index]];
-                }
-                bool exclude = next[sum];
-                curr[sum] = (include || exclude);
-            }
-            //updating
-            next = curr;
-        }
-        return next[0];
+        //step 2: store and return ans in dp
+        dp[i][sum]= (inc||exc);
+        return dp[i][sum];
     }
 
     bool canPartition(vector<int>& nums) {
-        // pattern of coin change is used- that is include exclude pattern
-        int index = 0;
-        int totalSum = 0;
-        for (int i = 0; i < nums.size(); i++) {
-            totalSum += nums[i];
+        int n = nums.size();
+        int sum, target;
+        for(int i : nums){
+            sum+=i;
         }
-        if (totalSum & 1) {
-            // odd sum cannot be partitioned
+        target =sum /2;
+
+        if(sum%2 == 1){
             return false;
         }
-        int target = totalSum / 2;
-        int currSum = 0;
-        int n = nums.size();
-
-        // bool ans = solveUsingRe(nums,index,currSum,target);
-        // return ans;
-
-        // vector<vector<int>> dp(n+1, vector<int>(target+1 , -1));
-        // bool ans = solveUsingMem(nums,index,currSum,target,dp);
-        // return ans;
-
-        bool ans = solveUsingTab(nums,target);
-        return ans;
-
-        // bool ans = solveUsingTabSO(nums,target);
-        // return ans;
+        // return solveRE(0, 0, target, nums);
+        
+        //step 1
+        vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
+        return memo(0,0,target,nums,dp);
     }
 };
