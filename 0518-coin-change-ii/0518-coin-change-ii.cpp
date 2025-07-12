@@ -46,14 +46,38 @@ public:
         return dp[amount][i];
     }
 
+    int tabulation(int amount, vector<int>& coins){
+        int n = coins.size();
+        //step 1
+        vector<vector<long long>>dp(amount+1,vector<long long>(n+1,0));
+        // step 2: BC analyze
+        for(int i=0;i<=n;i++){
+            dp[0][i] = 1;
+        }
+        for(int amt=1;amt<=amount;amt++){
+            for(int i = n-1;i>=0;i--){
+                //include
+                long long include=0;
+                if(amt-coins[i]>=0){
+                    include+= dp[amt-coins[i]][i];
+                }
+                long long exclude =0;
+                //exclude
+                exclude+=dp[amt][i+1];
+                dp[amt][i] = include+ exclude;
+            }
+        }        
+        return dp[amount][0];
+    }
+
     int change(int amount, vector<int>& coins) {
         // return solve(amount,coins,0); 
-        int n = coins.size();
+        // int n = coins.size();
 
-        //step 1 
-        vector<vector<long long>>dp(amount+1,vector<long long>(n+1,-1));
-        return memo(amount,coins,0,dp);
+        // //step 1 
+        // vector<vector<long long>>dp(amount+1,vector<long long>(n+1,-1));
+        // return memo(amount,coins,0,dp);
 
-        // return tabulation(amount,coins,0);
+        return tabulation(amount,coins);
     }
 };
