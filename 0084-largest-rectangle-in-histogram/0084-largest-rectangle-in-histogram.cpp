@@ -1,73 +1,46 @@
 class Solution {
 public:
-    vector<int> prevSmallerElement(vector<int>& input) {
-        stack<int> s;
-        s.push(-1);
-        vector<int> ans(input.size());
-
-        // left to right
-        for (int i = 0; i < input.size(); i++) {
-            int curr = input[i];
-
-            // put ans in stack, input[s.top()]->coz we want to access the index
-            while (s.top() != -1 && input[s.top()] >= curr) {
-                s.pop();
-            }
-
-            // chota element mil chuka hai toh store ans
-            ans[i] = s.top();
-
-            // push krdo curr element ko
-            s.push(i);
-        }
-        return ans;
-    }
-
-    vector<int> nextSmaller(vector<int>& input) {
-        stack<int> s;
-        s.push(-1);
-        vector<int> ans(input.size());
-
-        // left to right
-        for (int i = input.size() - 1; i >= 0; i--) {
-            int curr = input[i];
-
-            // put ans in stack, input[s.top()]->coz we want to access the index
-            while (s.top() != -1 && input[s.top()] >= curr) {
-                s.pop();
-            }
-
-            // chota element mil chuka hai toh store ans
-            ans[i] = s.top();
-
-            // push krdo curr element ko
-            s.push(i);
-        }
-        return ans;
-    }
     int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
 
-        // step 1: Prev Smaller output
-        vector<int> prev = prevSmallerElement(heights);
+        // Next smaller element index
+        vector<int> nextSmaller(n, n);  // Default to n
+        stack<int> st1;
 
-        // step 2: nextSmaller output
-        vector<int> next = nextSmaller(heights);
-
-        int maxArea = INT_MIN;
-        int size = heights.size();
-
-        for (int i = 0; i < heights.size(); i++) {
-            int len = heights[i];
-
-            if (next[i] == -1) {
-                next[i] = size;
+        for (int i = n - 1; i >= 0; i--) {
+            int curr = heights[i];
+            while (!st1.empty() && heights[st1.top()] >= curr) {
+                st1.pop();
             }
+            if (!st1.empty()) {
+                nextSmaller[i] = st1.top();
+            }
+            st1.push(i);
+        }
 
-            int width = next[i] - prev[i] - 1;
+        // Previous smaller element index
+        vector<int> prevSmaller(n, -1);  // Default to -1
+        stack<int> st2;
 
-            int area = len * width;
+        for (int i = 0; i < n; i++) {
+            int curr = heights[i];
+            while (!st2.empty() && heights[st2.top()] >= curr) {
+                st2.pop();
+            }
+            if (!st2.empty()) {
+                prevSmaller[i] = st2.top();
+            }
+            st2.push(i);
+        }
+
+        // Calculate max area
+        int maxArea = 0;
+        for (int i = 0; i < n; i++) {
+            int width = nextSmaller[i] - prevSmaller[i] - 1;
+            int area = heights[i] * width;
             maxArea = max(maxArea, area);
         }
+
         return maxArea;
     }
 };
