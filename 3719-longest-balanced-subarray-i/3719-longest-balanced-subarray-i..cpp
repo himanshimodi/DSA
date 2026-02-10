@@ -1,6 +1,6 @@
 class Solution {
-public:
-    int longestBalanced(vector<int>& nums) {
+public: 
+    int longestBalanced(vector<int>& nums) {  // TC= O(n^2)
         int n = nums.size();
         int ans = 0;
 
